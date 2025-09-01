@@ -5,17 +5,30 @@ import Card from "../components/PlotFigure.astro";
 import penguins from "../assets/datasets/penguins.json";
 ---
 
-<Layout>
-  <h1>R312 TP1</h1>
-  <h2>
-    Diagramme de points représentant la longueur et la profondeur des becs des
-    penguins dans une population donnée
-  </h2>
+<Layout title="R312 TP1">
+
+  <h3>
+    Nuage de points montrant la répartition des becs en fonction de la largeur et de la profondeur du bec dans une population de manchots
+  </h3>
   <Card
     options={{
       marks: [
         Plot.dot(penguins, { x: "culmen_length_mm", y: "culmen_depth_mm" }),
       ],
     }}
+  />
+
+  <h3>
+	Historigramme représentant la réparition des individus par poids et par sexe dans une population de manchots
+  </h3>
+  <Card
+    options={{
+  	y: {grid: true},
+  	color: {legend: true},
+  	marks: [
+    Plot.rectY(penguins, Plot.binX({y: "count"}, {x: "body_mass_g", fill: "sex"})),
+    Plot.ruleY([0])
+  ]
+}}
   />
 </Layout>

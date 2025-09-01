@@ -6,9 +6,9 @@ import penguins from "../assets/datasets/penguins.json";
 ---
 
 <Layout title="R312 TP1">
-
   <h3>
-    Nuage de points montrant la répartition des becs en fonction de la largeur et de la profondeur du bec dans une population de manchots
+    Distribution de la largeur et de la profondeur du bec dans une population de
+    manchots
   </h3>
   <Card
     options={{
@@ -19,16 +19,38 @@ import penguins from "../assets/datasets/penguins.json";
   />
 
   <h3>
-	Historigramme représentant la réparition des individus par poids et par sexe dans une population de manchots
+    Densité des dimensions du bec dans 3 espèces de manchots différentes
   </h3>
   <Card
     options={{
-  	y: {grid: true},
-  	color: {legend: true},
-  	marks: [
-    Plot.rectY(penguins, Plot.binX({y: "count"}, {x: "body_mass_g", fill: "sex"})),
-    Plot.ruleY([0])
-  ]
-}}
+      marks: [
+        Plot.density(penguins, {
+          fx: "species",
+          x: "flipper_length_mm",
+          y: "culmen_length_mm",
+          stroke: "density",
+          clip: true,
+        }),
+        Plot.frame(),
+      ],
+    }}
+  />
+
+  <h3>
+    Réparition des individus par poids et par sexe
+    dans une population de manchots
+  </h3>
+  <Card
+    options={{
+      y: { grid: true },
+      color: { legend: true },
+      marks: [
+        Plot.rectY(
+          penguins,
+          Plot.binX({ y: "count" }, { x: "body_mass_g", fill: "sex" })
+        ),
+        Plot.ruleY([0]),
+      ],
+    }}
   />
 </Layout>
